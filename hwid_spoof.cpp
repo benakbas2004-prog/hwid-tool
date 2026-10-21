@@ -1,0 +1,17 @@
+name: build
+on: push
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      
+uses: actions/checkout@v4
+name: compile
+    shell: cmd
+    run: |
+      call "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+      cl /EHsc /std:c++17 hwid_spoof.cpp /link iphlpapi.lib advapi32.lib
+uses: actions/upload-artifact@v4
+  with:
+    name: hwid_spoof
+    path: hwid_spoof.exe
